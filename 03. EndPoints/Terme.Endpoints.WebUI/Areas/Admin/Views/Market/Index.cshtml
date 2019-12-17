@@ -1,0 +1,65 @@
+﻿@inject IResourceManager _resourceManager
+@model List<Terme.Core.Domain.Masters.Entities.MasterProductPhoto>
+@{
+    ViewData["Title"] = @_resourceManager[SharedResource.Market];
+}
+
+<main role="main">
+
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1>فروشگاه</h1>
+            <p class="lead text-muted">
+                فروشگاه ترمه در جهت حمایت از صنایع دستی ایران تاسیس شده است.
+            </p>
+            <p>
+                <a asp-action="Index" asp-controller="Masters" asp-area="Admin" class="btn btn-primary my-2">مشاهده اساتید</a>
+                <a asp-action="AddEditProduct" asp-controller="Market" asp-area="Admin" class="btn btn-primary my-2">@_resourceManager[SharedResource.AddProduct]</a>
+            </p>
+         </div>
+    </section>
+
+    <div class="album py-5 bg-light">
+        <div class="container">
+            @if (Model.Any())
+            {
+                foreach (var item in Model)
+                {
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card mb-4 shadow-sm">
+                                @*<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>*@
+                                <img src="@item.Photo.Url" class="img-thumbnail" />
+                                <div class="card-body">
+                                    <p class="card-text">توضیحات: @item.MasterProducts.Description</p>
+                                    <p class="card-text">تخفیف: @item.MasterProducts.Discount</p>
+                                    <p class="card-text">استاد مربوطه: @item.MasterProducts.Master.FirstName @item.MasterProducts.Master.LastName </p>
+                                    <p class="card-text">دسته: @item.MasterProducts.Category.Name</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                                        </div>
+                                        <small class="text-muted">استاد مورد نظر</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div>
+                    @_resourceManager[SharedResource.NoDate]
+                </div>
+            }
+
+
+        </div>
+    </div>
+
+</main>
+
+
+
+
